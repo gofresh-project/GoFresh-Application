@@ -1,0 +1,18 @@
+package com.example.demo.service;
+
+import org.springframework.stereotype.Service;
+
+
+
+@Service
+public class CityService {
+
+	
+	City getCityById(int id);
+
+    City getCityByName(String name);
+
+    List<City> getAllCities();
+
+    City saveCity(City city);
+}

@@ -1,0 +1,62 @@
+package com.example.demo.service;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.City;
+import com.example.demo.repository.CityRepository;
+
+
+
+@Service
+public class CityService {
+
+
+	@Autowired
+	CityRepository cityRepo;
+
+	// Get all cities
+	public List<City> getAll() {
+		return cityRepo.findAll();
+	}
+
+	// Get one city by ID
+	public City getOne(int id) {
+		City city = null;
+		Optional<City> oc = cityRepo.findById(id);
+
+		try {
+			city = oc.get();
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+		}
+
+		return city;
+	}
+
+	// Get city by name
+	public City getByCityName(String cityName) {
+		City city = null;
+		Optional<City> oc = cityRepo.findByCityName(cityName);
+
+		try {
+			city = oc.get();
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+		}
+
+		return city;
+	}
+
+	// Save city
+	public City save(City city) {
+		return cityRepo.save(city);
+	}
+	
+	
+	
+}

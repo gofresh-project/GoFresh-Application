@@ -1,0 +1,91 @@
+package com.example.demo.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.model.Area;
+import com.example.demo.model.User;
+import com.example.demo.model.Vendor;
+import com.example.demo.service.AreaService;
+import com.example.demo.service.UserService;
+import com.example.demo.service.VendorService;
+
+@RestController
+public class VendorController {
+
+    @Autowired
+    VendorService vendorService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    AreaService areaService;
+
+    // http://localhost:8080/allvendors
+    @GetMapping("/allvendors")
+    public List<Vendor> getAll() {
+        return vendorService.getAll();
+    }
+
+    
+    
+    
+    // http://localhost:8080/getvendor?vendorId=1
+    @GetMapping("/getvendor")
+    public Optional<Vendor> getOne(@RequestParam("vendorId") int id) {
+        return vendorService.getOne(id);
+    }
+    
+    
+    
+
+    // http://localhost:8080/savevendor
+    @PostMapping("/savevendor")
+    public Vendor save(@RequestBody Vendor vendor) {
+        return vendorService.save(vendor);
+    }
+    
+    
+    
+    
+    
+    
+
+    // http://localhost:8080/deletevendor/1
+    @DeleteMapping("/deletevendor/{vendorId}")
+    public void delete(@PathVariable("vendorId") int id) {
+        vendorService.delete(id);
+    }
+
+    
+    
+    // http://localhost:8080/findvendorbyuser?uid=2
+    @GetMapping("/findvendorbyuser")
+    public Optional<Vendor> findByUser(@RequestParam int uid) {
+        User user = userService.getOne(uid); // return User directly
+        return vendorService.findByUser(user);
+    }
+
+    // http://localhost:8080/findvendorbyarea?aid=1
+    @GetMapping("/findvendorbyarea")
+    public List<Vendor> findByArea(@RequestParam int aid) {
+        Area area = areaService.getOne(aid); // return Area directly
+        return vendorService.findByArea(area);
+    }
+
+    // http://localhost:8080/findvendorbyrating?rating=4.0
+    @GetMapping("/findvendorbyrating")
+    public List<Vendor> findByRating(@RequestParam double rating) {
+        return vendorService.findByRatingGreaterThan(rating);
+    }
+
+    // http://localhost:8080/findvendorbyreg?reg=BUS-PN-2025-001
+    @GetMapping("/findvendorbyreg")
+    public Optional<Vendor> findByBusinessRegNo(@RequestParam String reg) {
+        return vendorService.findByBusinessRegNo(reg);
+    }
+}

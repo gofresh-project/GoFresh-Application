@@ -1,0 +1,50 @@
+package com.example.demo.service;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.Area;
+import com.example.demo.model.User;
+import com.example.demo.model.Vendor;
+import com.example.demo.repository.VendorRepository;
+
+@Service
+public class VendorService {
+
+    @Autowired
+    VendorRepository vRepo;
+
+ // Get vendor by user
+    public Optional<Vendor> findByUser(User user) {
+        if(user == null) return Optional.empty();
+        return vRepo.findByUser(user);
+    }
+
+    
+    
+    // Get vendor by business registration number
+    public Optional<Vendor> findByBusinessRegNo(String businessRegNo) {
+        return vRepo.findByBusinessRegNo(businessRegNo);
+    }
+    
+    
+
+    // Get vendors by area
+    public List<Vendor> findByArea(Area area) {
+        if(area == null) return List.of(); // prevent null pointer
+        return vRepo.findByArea(area);
+    }
+    
+    
+
+    // Get vendors by rating
+    public List<Vendor> findByRatingGreaterThan(double rating) {
+        return vRepo.findByRatingGreaterThan(rating);
+    }
+
+    
+}

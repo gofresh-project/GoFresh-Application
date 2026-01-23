@@ -1,0 +1,72 @@
+package com.example.demo.service;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.Area;
+import com.example.demo.model.City;
+import com.example.demo.repository.AreaRepository;
+import com.example.demo.repository.CityRepository;
+
+@Service
+public class AreaService {
+
+    @Autowired
+    AreaRepository areaRepo;
+    
+    
+    @Autowired
+    CityRepository cityRepo;
+
+    // Get all areas
+    public List<Area> getAll() {
+        return areaRepo.findAll();
+    }
+
+    // Get area by ID
+    public Area getOne(int id) {
+        Area area = null;
+        Optional<Area> oa = areaRepo.findById(id);
+
+        try {
+            area = oa.get();
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        }
+
+        return area;
+    }
+
+    // Get area by name
+    public Area getByAreaName(String areaName) {
+        Area area = null;
+        Optional<Area> oa = areaRepo.findByAreaName(areaName);
+
+        try {
+            area = oa.get();
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        }
+
+        return area;
+    }
+
+    // Get areas by city
+    public List<Area> getByCity(City city) {
+        return areaRepo.findByCity(city);
+    }
+
+    // Save area
+    public Area save(Area area) {
+        return areaRepo.save(area);
+    }
+
+    // Delete area
+    public void delete(int id) {
+        areaRepo.deleteById(id);
+    }
+}

@@ -1,0 +1,84 @@
+package com.example.demo.service;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.Area;
+import com.example.demo.model.User;
+import com.example.demo.model.Vendor;
+import com.example.demo.repository.VendorRepository;
+
+@Service
+public class VendorService {
+
+    @Autowired
+    VendorRepository vRepo;
+
+    // Get all vendors
+    public List<Vendor> getAll() {
+        return vRepo.findAll();
+    }
+
+    // Get vendor by vendor ID
+    public Vendor getOne(int id) {
+        Vendor vendor = null;
+        Optional<Vendor> ov = vRepo.findById(id);
+
+        try {
+            vendor = ov.get();
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        }
+
+        return vendor;
+    }
+
+    // Get vendor by user
+    public Vendor getByUser(User user) {
+        Vendor vendor = null;
+        Optional<Vendor> ov = vRepo.findByUser(user);
+
+        try {
+            vendor = ov.get();
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        }
+
+        return vendor;
+    }
+
+    // Get vendors by area
+    public List<Vendor> getByArea(Area area) {
+        return vRepo.findByArea(area);
+    }
+
+    // Get vendor by business registration number
+    public Vendor getByBusinessRegNo(String businessRegNo) {
+        Vendor vendor = null;
+        Optional<Vendor> ov = vRepo.findByBusinessRegNo(businessRegNo);
+
+        try {
+            vendor = ov.get();
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        }
+
+        return vendor;
+    }
+
+    
+    
+    // Save vendor
+    public Vendor save(Vendor vendor) {
+        return vRepo.save(vendor);
+    }
+
+    // Delete vendor
+    public void delete(int id) {
+        vRepo.deleteById(id);
+    }
+}
