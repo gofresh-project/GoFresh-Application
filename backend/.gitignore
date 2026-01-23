@@ -1,0 +1,32 @@
+# --- Build Output ---
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# --- Eclipse Metadata ---
+.metadata/
+.project
+.classpath
+.settings/
+bin/
+*.launch
+.factorypath
+
+# --- IntelliJ IDEA (in case of cross-IDE collaboration) ---
+.idea/
+*.iml
+*.iws
+
+# --- Operating System ---
+.DS_Store
+Thumbs.db
+
+# --- Spring Boot & Environment ---
+.recommenders
+help.html
+.sts4-cache/
+application-local.properties
+.env
