@@ -1,0 +1,118 @@
+/* ================================
+   GOFRESH NAVBAR (BLACK + GREEN)
+   ================================ */
+
+/* Main Navbar */
+.gofresh-navbar {
+  background-color: #0b0f0c; /* deep black */
+  border-bottom: 1px solid #16a34a; /* green accent */
+  padding: 12px 0;
+}
+
+/* Brand */
+.gofresh-brand {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #22c55e !important; /* neon green */
+  letter-spacing: 0.8px;
+}
+
+.gofresh-brand:hover {
+  color: #16a34a !important;
+}
+
+/* Navigation Links */
+.gofresh-nav .nav-link {
+  font-weight: 500;
+  color: #e5e7eb !important; /* light gray */
+  margin-right: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+.gofresh-nav .nav-link:hover {
+  color: #22c55e !important;
+}
+
+/* Active link (optional, future use) */
+.gofresh-nav .nav-link.active {
+  color: #22c55e !important;
+  border-bottom: 2px solid #22c55e;
+}
+
+/* Dropdown Menu */
+.gofresh-nav .dropdown-menu {
+  background-color: #020617;
+  border-radius: 12px;
+  border: 1px solid #16a34a;
+  box-shadow: 0 15px 30px rgba(34, 197, 94, 0.15);
+}
+
+.gofresh-nav .dropdown-item {
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+.gofresh-nav .dropdown-item:hover {
+  background-color: #052e16;
+  color: #22c55e;
+}
+
+/* Search Bar */
+.gofresh-search input {
+  background-color: #020617;
+  color: #e5e7eb;
+  border-radius: 999px;
+  padding: 8px 16px;
+  border: 1px solid #16a34a;
+}
+
+.gofresh-search input::placeholder {
+  color: #9ca3af;
+}
+
+.gofresh-search input:focus {
+  background-color: #020617;
+  color: #ffffff;
+  border-color: #22c55e;
+  box-shadow: 0 0 0 0.15rem rgba(34, 197, 94, 0.25);
+}
+
+/* Search Button */
+.gofresh-search button {
+  background-color: #16a34a;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-weight: 600;
+  color: #020617;
+  transition: background-color 0.2s ease;
+}
+
+.gofresh-search button:hover {
+  background-color: #22c55e;
+}
+
+/* Cart Link */
+.cart-link {
+  margin-left: 18px;
+  font-weight: 600;
+  color: #e5e7eb;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cart-link:hover {
+  color: #22c55e;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 991px) {
+  .gofresh-search {
+    margin-top: 14px;
+  }
+
+  .cart-link {
+    display: block;
+    margin: 10px 0 0;
+  }
+}

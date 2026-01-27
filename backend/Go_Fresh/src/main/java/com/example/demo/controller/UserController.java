@@ -38,9 +38,9 @@ public class UserController {
         userService.delete(id);
     }
 
-    // http://localhost:8080/finduserbyusername?username=john
-    @GetMapping("/finduserbyusername")
-    public User findByUsername(@RequestParam String username) {
-        return userService.getByUsername(username);
-    }
+//    // http://localhost:8080/finduserbyusername?username=john
+//    @GetMapping("/finduserbyusername")
+//    public User findByUsername(@RequestParam String username) {
+//        return userService.getByUsername(username);
+//    }
 }

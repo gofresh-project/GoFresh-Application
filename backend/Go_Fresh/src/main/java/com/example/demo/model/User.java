@@ -24,8 +24,8 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int userId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "role_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
 	Role role;
 	
     @Column(name = "username", nullable = false, length = 60)

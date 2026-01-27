@@ -37,33 +37,6 @@ public class UserService {
 		return user;
 	}
 
-	// Get user by username
-	public User getByUsername(String username) {
-		User user = null;
-		Optional<User> ou = userRepo.findByUsername(username);
-
-		try {
-			user = ou.get();
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-		}
-
-		return user;
-	}
-
-	// Get user by email
-	public User getByEmail(String email) {
-		User user = null;
-		Optional<User> ou = userRepo.findByEmail(email);
-
-		try {
-			user = ou.get();
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-		}
-
-		return user;
-	}
 
 	// Save user (create or update)
 	public User save(User user) {
@@ -75,4 +48,47 @@ public class UserService {
 		userRepo.deleteById(id);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	// Get user by username
+//	public User getByUsername(String username) {
+//		User user = null;
+//		Optional<User> ou = userRepo.findByUsername(username);
+//
+//		try {
+//			user = ou.get();
+//		} catch (NoSuchElementException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return user;
+//	}
+//
+//	// Get user by email
+//	public User getByEmail(String email) {
+//		User user = null;
+//		Optional<User> ou = userRepo.findByEmail(email);
+//
+//		try {
+//			user = ou.get();
+//		} catch (NoSuchElementException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return user;
+//	}
+
+	
+	
+	
+	
 }
