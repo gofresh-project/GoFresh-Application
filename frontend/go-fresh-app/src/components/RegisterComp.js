@@ -1,38 +1,75 @@
 import { useState } from "react";
 
 function Register() {
+
   const [formData, setFormData] = useState({
     username: "",
-    first_name: "",
-    last_name: "",
-    phone_number: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
     email: "",
-    password: "",
-    confirm_password: "",
-    role_id: 2, // default: Customer
+    passwordHash: "",
+    confirmPassword: "",
+    roleId: 2
   });
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: name === "roleId" ? Number(value) : value
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
 
-    if (formData.password !== formData.confirm_password) {
+    e.preventDefault();
+        console.log("button clicked")
+
+
+    // 1️⃣ Frontend validation
+    if (formData.passwordHash !== formData.confirmPassword) {
+
       alert("Passwords do not match");
       return;
     }
 
-    console.log(formData);
-    // send data to backend API
+    // 2️⃣ Payload sent to backend
+    const payload = {
+      username: formData.username,
+      firstName: formData.firstName,
+      lastName: formData.lastName,  
+      phoneNumber: formData.phoneNumber,
+      email: formData.email,
+      passwordHash: formData.passwordHash,
+      role: {
+        roleId: formData.roleId
+      }
+    };
+
+    try {
+      // 3️⃣ API call
+      const response = await fetch("http://localhost:8080/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error("Registration failed");
+      }
+
+      alert("User Registered Successfully!");
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   return (
-    <div className="container mt-5">
+       <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card shadow">
@@ -60,7 +97,7 @@ function Register() {
                   <label className="form-label">First Name</label>
                   <input
                     type="text"
-                    name="first_name"
+                    name="firstName"
                     className="form-control"
                     placeholder="Enter first name"
                     onChange={handleChange}
@@ -73,7 +110,7 @@ function Register() {
                   <label className="form-label">Last Name</label>
                   <input
                     type="text"
-                    name="last_name"
+                    name="lastName"
                     className="form-control"
                     placeholder="Enter last name"
                     onChange={handleChange}
@@ -86,7 +123,7 @@ function Register() {
                   <label className="form-label">Phone Number</label>
                   <input
                     type="tel"
-                    name="phone_number"
+                    name="phoneNumber"
                     className="form-control"
                     placeholder="Enter phone number"
                     onChange={handleChange}
@@ -112,7 +149,7 @@ function Register() {
                   <label className="form-label">Password</label>
                   <input
                     type="password"
-                    name="password"
+                    name="passwordHash"
                     className="form-control"
                     placeholder="Enter password"
                     onChange={handleChange}
@@ -125,7 +162,7 @@ function Register() {
                   <label className="form-label">Confirm Password</label>
                   <input
                     type="password"
-                    name="confirm_password"
+                    name="confirmPassword"
                     className="form-control"
                     placeholder="Confirm password"
                     onChange={handleChange}
@@ -137,7 +174,7 @@ function Register() {
                 <div className="mb-4">
                   <label className="form-label">Role</label>
                   <select
-                    name="role_id"
+                    name="roleId"
                     className="form-select"
                     onChange={handleChange}
                   >
