@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllProducts } from "../services/productService";
-import ProductCard from "../components/ProductCard";
+import Card from "../components/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -28,14 +28,25 @@ export default function Products() {
 
   return (
     <Container className="mt-4">
-      <h2 className="mb-4">Fresh Products</h2>
+      <h2 className="mb-4 text-center">Fresh Products</h2>
 
       <Row>
-        {products.map((product) => (
-          <Col key={product.prod_id} sm={12} md={6} lg={4} className="mb-4">
-            <ProductCard product={product} />
-          </Col>
-        ))}
+        {products.map((backendProduct) => {
+          // Normalize backend → frontend model
+          const product = {
+            id: backendProduct.prod_id,
+            name: backendProduct.product_name,
+            price: backendProduct.price,
+            image: backendProduct.image_url,
+            available: backendProduct.available,
+          };
+
+          return (
+            <Col key={product.id} sm={12} md={6} lg={4} className="mb-4">
+              <Card product={product} />
+            </Col>
+          );
+        })}
       </Row>
     </Container>
   );
