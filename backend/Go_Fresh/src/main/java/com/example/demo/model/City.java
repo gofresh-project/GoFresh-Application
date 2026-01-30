@@ -1,0 +1,46 @@
+package com.example.demo.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "cities")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class City {
+
+	@Id
+    @Column(name = "city_id")
+	int cityId;
+	
+    @Column(name = "city_name", nullable = false, length = 45)
+	String cityName;
+    
+    
+
+	public int getCityId() {
+		return cityId;
+	}
+
+	public void setCityId(int cityId) {
+		this.cityId = cityId;
+	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
+	
+	
+	
+	
+	
+	
+}

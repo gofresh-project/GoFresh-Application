@@ -1,0 +1,46 @@
+package com.example.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.model.Role;
+import com.example.demo.service.RoleService;
+
+@RestController
+public class RoleController {
+
+    @Autowired
+    RoleService roleService;
+
+    // http://localhost:8080/allroles
+    @GetMapping("/allroles")
+    public List<Role> getAll() {
+        return roleService.getAll();
+    }
+
+    // http://localhost:8080/getrole?rid=1
+    @GetMapping("/getrole")
+    public Role getOne(@RequestParam("rid") int id) {
+        return roleService.getOne(id);
+    }
+
+    // http://localhost:8080/saverole
+    @PostMapping("/saverole")
+    public Role save(@RequestBody Role role) {
+        return roleService.save(role);
+    }
+
+    // http://localhost:8080/deleterole/1
+    @DeleteMapping("/deleterole/{rid}")
+    public void delete(@PathVariable("rid") int id) {
+        roleService.delete(id);
+    }
+
+    // Example: http://localhost:8080/findrolebyname?name=ADMIN
+    @GetMapping("/findrolebyname")
+    public Role findByName(@RequestParam String name) {
+        return roleService.getByRoleName(name);
+    }
+}
