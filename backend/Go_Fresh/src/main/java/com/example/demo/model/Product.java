@@ -39,11 +39,21 @@ public class Product {
     @JoinColumn(name = "cat_id", nullable = false)
     private Category category;
 
-    public Product() {}
-
+ // Constructors
+    public Product() {
+        this.price = 0.0;  // Initialize in constructor   // To Avoid Could not write JSON: Cannot invoke "java.lang.Double.doubleValue()" because "this.price" is null
+    }
     public int getProdId() {
         return prodId;
     }
+    
+    
+    @Transient
+    private Double price = 0.0;  // Initialize with default value  //Could not write JSON: Cannot invoke "java.lang.Double.doubleValue()" because "this.price" is null
+    
+    
+    
+    
 
     public void setProdId(int prodId) {
         this.prodId = prodId;
@@ -72,4 +82,22 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
+    
+    
+    
+    
+    
+    
+    
+    public Double getPrice() { 
+        return price != null ? price : 0.0;  // Return 0.0 if null  //Could not write JSON: Cannot invoke "java.lang.Double.doubleValue()" because "this.price" is null
+    }
+    
+    public void setPrice(Double price) { 
+        this.price = price != null ? price : 0.0;  // Never set to null  //Could not write JSON: Cannot invoke "java.lang.Double.doubleValue()" because "this.price" is null
+    }	
+    
+    
+    
+    
 }

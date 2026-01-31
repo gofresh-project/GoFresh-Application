@@ -26,22 +26,22 @@ public interface StockRepository extends JpaRepository<Stock, Integer> {
     List<Stock> findByVendor_VendorId(int vendorId);
 
     
-//    @Query("""
-//            SELECT s FROM Stock s
-//            WHERE (:productId IS NULL OR s.product.productId = :productId)
-//              AND (:vendorId IS NULL OR s.vendor.vendorId = :vendorId)
-//              AND (:minPrice IS NULL OR s.price >= :minPrice)
-//              AND (:maxPrice IS NULL OR s.price <= :maxPrice)
-//              AND (:inStock IS NULL OR s.quantity > 0)
-//        """)
-//        List<Stock> filterStocks(
-//            @Param("productId") Integer productId,
-//            @Param("vendorId") Integer vendorId,
-//            @Param("minPrice") Double minPrice,
-//            @Param("maxPrice") Double maxPrice,
-//            @Param("inStock") Boolean inStock
-//        );
+    @Query("""
+    	    SELECT s
+    	    FROM Stock s
+    	    JOIN FETCH s.vendor v
+    	    JOIN FETCH v.area a
+    	    WHERE s.product.prodId = :productId
+    	""")
+    	List<Stock> findStocksByProductId(@Param("productId") int productId);
+
     
     List<Stock> findByVendorVendorId(int vendorId);
+    
+    
+    
+    //For Add to Cart
+    @Query("SELECT s FROM Stock s WHERE s.product.prodId = :productId AND s.vendor.vendorId = :vendorId")
+    Optional<Stock> findByProductIdAndVendorId(@Param("productId") int productId, @Param("vendorId") int vendorId);
     
 }
