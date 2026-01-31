@@ -71,7 +71,7 @@ function Register() {
   return (
        <div className="container mt-5">
       <div className="row justify-content-center">
-        <div className="col-md-6">
+        <div className="col-md-7">
           <div className="card shadow">
             <div className="card-body">
               <h3 className="text-center mb-4 text-success">
@@ -81,7 +81,7 @@ function Register() {
               <form onSubmit={handleSubmit}>
                 {/* Username */}
                 <div className="mb-3">
-                  <label className="form-label">Username</label>
+                  <label className="col-md-4 col-form-label">Username</label>
                   <input
                     type="text"
                     name="username"
