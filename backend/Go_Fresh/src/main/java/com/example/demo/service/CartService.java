@@ -11,178 +11,180 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class CartService {
     
-    @Autowired private CartRepository cartRepository;
-    @Autowired private CartItemRepository cartItemRepository;
-    @Autowired private ProductRepository productRepository;
-    @Autowired private VendorRepository vendorRepository;
-    @Autowired private StockRepository stockRepository;
-    @Autowired private UserRepository userRepository;
+    @Autowired
+    private CartRepository cartRepository;
     
-    // ========== CART METHODS ==========
+    @Autowired
+    private CartItemRepository cartItemRepository;
     
-    // Get or create cart for user
-    public Cart getOrCreateCart(int userId) {
-        // Check if user has active cart
-        Optional<Cart> existingCart = cartRepository.findActiveCartByUserId(userId);
-        
-        if (existingCart.isPresent()) {
-            return existingCart.get();
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private ProductRepository productRepository;
+    
+    @Autowired
+    private VendorRepository vendorRepository;
+    
+    @Autowired
+    private StockRepository stockRepository;
+    
+    // Get or create active cart for user
+    public Cart getOrCreateActiveCart(int userId) {
+        Optional<User> userOpt = userRepository.findById(userId);
+        if (userOpt.isEmpty()) {
+            throw new RuntimeException("User not found with ID: " + userId);
         }
         
-        // Create new cart
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+        User user = userOpt.get();
         
-        Cart newCart = new Cart(user);
-        return cartRepository.save(newCart);
+        // Try to find active cart
+        Optional<Cart> cartOpt = cartRepository.findByUserAndStatus(user, CartStatus.ACTIVE);
+        
+        if (cartOpt.isPresent()) {
+            return cartOpt.get();
+        } else {
+            // Create new cart
+            Cart newCart = new Cart(user);
+            return cartRepository.save(newCart);
+        }
     }
-    
-    // Get user's cart
-    public Cart getUserCart(int userId) {
-        return cartRepository.findActiveCartByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("No active cart found for user ID: " + userId));
-    }
-    
-    // ========== CART ITEM METHODS ==========
     
     // Add item to cart
-    @Transactional
     public CartItem addToCart(int userId, int productId, int vendorId, int quantity) {
-        // Validate quantity
-        if (quantity < 1) {
-            throw new RuntimeException("Quantity must be at least 1");
-        }
-        
         // Get or create cart
-        Cart cart = getOrCreateCart(userId);
+        Cart cart = getOrCreateActiveCart(userId);
         
         // Get product
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + productId));
+        Optional<Product> productOpt = productRepository.findById(productId);
+        if (productOpt.isEmpty()) {
+            throw new RuntimeException("Product not found with ID: " + productId);
+        }
+        Product product = productOpt.get();
         
         // Get vendor
-        Vendor vendor = vendorRepository.findById(vendorId)
-                .orElseThrow(() -> new RuntimeException("Vendor not found with ID: " + vendorId));
+        Optional<Vendor> vendorOpt = vendorRepository.findById(vendorId);
+        if (vendorOpt.isEmpty()) {
+            throw new RuntimeException("Vendor not found with ID: " + vendorId);
+        }
+        Vendor vendor = vendorOpt.get();
         
         // Check stock availability
-        Stock stock = stockRepository.findByProductIdAndVendorId(productId, vendorId)
-                .orElseThrow(() -> new RuntimeException("Stock not found for product and vendor"));
+        Optional<Stock> stockOpt = stockRepository.findByProductIdAndVendorId(productId, vendorId);
+        if (stockOpt.isEmpty()) {
+            throw new RuntimeException("Product not available from this vendor");
+        }
         
-        if (stock.getQuantity() <= 0) {
-            throw new RuntimeException("Product is out of stock");
+        Stock stock = stockOpt.get();
+        if (stock.getQuantity() < quantity) {
+            throw new RuntimeException("Insufficient stock. Available: " + stock.getQuantity());
         }
         
         // Check if item already exists in cart
-        Optional<CartItem> existingItem = cartItemRepository.findByCartAndProductAndVendor(cart, product, vendor);
+        Optional<CartItem> existingItemOpt = cartItemRepository.findByCartAndProductAndVendorAndStatus(
+                cart, product, vendor, CartItemStatus.ADDED);
         
-     // In addToCart method, after creating/updating cart item:
-        if (existingItem.isPresent()) {
-            CartItem cartItem = existingItem.get();
-            cartItem.setQuantity(cartItem.getQuantity() + quantity);
-            cartItem.setPrice(stock.getPrice());
-            cartItem.getProduct().setPrice(stock.getPrice()); // ALSO set product price
-            return cartItemRepository.save(cartItem);
+        if (existingItemOpt.isPresent()) {
+            // Update existing item
+            CartItem existingItem = existingItemOpt.get();
+            int newQuantity = existingItem.getQuantity() + quantity;
+            
+            // Check stock for updated quantity
+            if (stock.getQuantity() < newQuantity) {
+                throw new RuntimeException("Cannot add more items. Available stock: " + stock.getQuantity());
+            }
+            
+            existingItem.setQuantity(newQuantity);
+            existingItem.setPrice(stock.getPrice()); // Update price in case it changed
+            return cartItemRepository.save(existingItem);
         } else {
-            CartItem newCartItem = new CartItem(cart, product, vendor, quantity);
-            newCartItem.setPrice(stock.getPrice());
-            newCartItem.getProduct().setPrice(stock.getPrice()); // ALSO set product price
+            // Create new cart item
+            CartItem newCartItem = new CartItem(cart, product, vendor, quantity, stock.getPrice());
             return cartItemRepository.save(newCartItem);
         }
     }
     
- // In CartService.java, update the getCartItems method:
+    // Get cart items for user
     public List<CartItem> getCartItems(int userId) {
-        Cart cart = getUserCart(userId);
-        List<CartItem> cartItems = cartItemRepository.findByCart(cart);
-        
-        // CRITICAL: Set prices for each cart item
-        for (CartItem item : cartItems) {
-            try {
-                // Get current price from stocks table
-                Stock stock = stockRepository.findByProductIdAndVendorId(
-                    item.getProduct().getProdId(), 
-                    item.getVendor().getVendorId()
-                ).orElse(null);
-                
-                if (stock != null) {
-                    // Set the transient price field
-                    item.setPrice(stock.getPrice());
-                    
-                    // ALSO set price in product object for frontend
-                    item.getProduct().setPrice(stock.getPrice());
-                } else {
-                    // Set default price if stock not found
-                    item.setPrice(0.0);
-                    item.getProduct().setPrice(0.0);
-                }
-            } catch (Exception e) {
-                System.err.println("Error setting price for cart item: " + e.getMessage());
-                item.setPrice(0.0);
-                item.getProduct().setPrice(0.0);
-            }
-        }
-        
-        return cartItems;
+        Cart cart = getOrCreateActiveCart(userId);
+        return cartItemRepository.findByCartAndStatus(cart, CartItemStatus.ADDED);
     }
     
-    // Update quantity
-    @Transactional
-    public CartItem updateQuantity(int userId, int cartItemId, int quantity) {
-        if (quantity < 1) {
-            throw new RuntimeException("Quantity must be at least 1");
+    // Update cart item quantity
+    public CartItem updateCartItemQuantity(int userId, int cartItemId, int newQuantity) {
+        if (newQuantity <= 0) {
+            throw new RuntimeException("Quantity must be greater than 0");
         }
         
-        Cart cart = getUserCart(userId);
+        Optional<CartItem> cartItemOpt = cartItemRepository.findById(cartItemId);
+        if (cartItemOpt.isEmpty()) {
+            throw new RuntimeException("Cart item not found with ID: " + cartItemId);
+        }
         
-        CartItem cartItem = cartItemRepository.findByCartAndCartItemId(cart, cartItemId)
-                .orElseThrow(() -> new RuntimeException("Cart item not found with ID: " + cartItemId));
+        CartItem cartItem = cartItemOpt.get();
+        
+        // Verify cart belongs to user
+        if (cartItem.getCart().getUser().getUserId() != userId) {
+            throw new RuntimeException("Cart item does not belong to user");
+        }
         
         // Check stock availability
         Stock stock = stockRepository.findByProductIdAndVendorId(
-            cartItem.getProduct().getProdId(), 
-            cartItem.getVendor().getVendorId()
-        ).orElseThrow(() -> new RuntimeException("Stock not found"));
+                cartItem.getProduct().getProdId(), 
+                cartItem.getVendor().getVendorId())
+                .orElseThrow(() -> new RuntimeException("Stock not found"));
         
-        if (quantity > stock.getQuantity()) {
-            throw new RuntimeException("Cannot update to more than available stock. Available: " + stock.getQuantity());
+        if (stock.getQuantity() < newQuantity) {
+            throw new RuntimeException("Insufficient stock. Available: " + stock.getQuantity());
         }
         
-        cartItem.setQuantity(quantity);
-        cartItem.setPrice(stock.getPrice()); // Update price
+        cartItem.setQuantity(newQuantity);
         return cartItemRepository.save(cartItem);
     }
     
     // Remove item from cart
-    @Transactional
-    public void removeFromCart(int userId, int cartItemId) {
-        Cart cart = getUserCart(userId);
+    public boolean removeFromCart(int userId, int cartItemId) {
+        Optional<CartItem> cartItemOpt = cartItemRepository.findById(cartItemId);
+        if (cartItemOpt.isEmpty()) {
+            return false;
+        }
         
-        CartItem cartItem = cartItemRepository.findByCartAndCartItemId(cart, cartItemId)
-                .orElseThrow(() -> new RuntimeException("Cart item not found with ID: " + cartItemId));
+        CartItem cartItem = cartItemOpt.get();
         
-        cartItemRepository.delete(cartItem);
+        // Verify cart belongs to user
+        if (cartItem.getCart().getUser().getUserId() != userId) {
+            return false;
+        }
+        
+        // Mark as removed instead of deleting (soft delete)
+        cartItem.setStatus(CartItemStatus.REMOVED);
+        cartItemRepository.save(cartItem);
+        return true;
     }
     
     // Clear cart
-    @Transactional
     public void clearCart(int userId) {
-        Cart cart = getUserCart(userId);
-        cartItemRepository.deleteByCart(cart);
-    }
-    
-    // Get cart item count
-    public int getCartItemCount(int userId) {
-        Cart cart = getUserCart(userId);
-        return cartItemRepository.countByCart(cart);
+        Cart cart = getOrCreateActiveCart(userId);
+        List<CartItem> cartItems = cartItemRepository.findByCartAndStatus(cart, CartItemStatus.ADDED);
+        
+        for (CartItem item : cartItems) {
+            item.setStatus(CartItemStatus.REMOVED);
+            cartItemRepository.save(item);
+        }
     }
     
     // Get cart total
     public double getCartTotal(int userId) {
         List<CartItem> cartItems = getCartItems(userId);
-        return cartItems.stream()
-                .mapToDouble(CartItem::getTotalPrice)
-                .sum();
+        double total = 0.0;
+        
+        for (CartItem item : cartItems) {
+            total += item.getPrice() * item.getQuantity();
+        }
+        
+        return total;
     }
 }

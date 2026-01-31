@@ -1,3 +1,4 @@
+// src/pages/ProductDetails.jsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -15,21 +16,19 @@ export default function ProductDetails() {
   const { productId } = useParams();
   const navigate = useNavigate();
 
-
-  
-    console.log("✅ ProductDetails loaded");
+  console.log("✅ ProductDetails loaded");
   console.log("✅ URL path: /products/" + productId);
   console.log("✅ productId value:", productId);
   
-  // Get user and addToCart from CartContext
-  const { addToCart, currentUser } = useCart();
+  // Get cart context - IMPORTANT: Use currentUser from context
+  const { addToCart, currentUser, getCartItemQuantity, getCartItemId, updateQuantity } = useCart();
 
   const [product, setProduct] = useState(null);
   const [stocks, setStocks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [quantities, setQuantities] = useState({});
   const [error, setError] = useState(null);
-  const [addingToCart, setAddingToCart] = useState(false);
+  const [addingToCart, setAddingToCart] = useState({});
 
   // Fetch product and stock data
   useEffect(() => {
@@ -44,6 +43,8 @@ export default function ProductDetails() {
 
         const stocksRes = await axios.get(`http://localhost:8080/stocks/product/${productId}`);
         
+        console.log('Stocks data:', stocksRes.data); // Debug log
+        
         // Only show vendors with available stock
         const availableStocks = stocksRes.data.filter(stock => stock.quantity > 0);
         setStocks(availableStocks);
@@ -51,8 +52,11 @@ export default function ProductDetails() {
         // Initialize quantity for each vendor
         const initialQuantities = {};
         availableStocks.forEach(stock => {
-          if (stock.vendor) {
-            initialQuantities[stock.vendor.vendorId] = 1;
+          if (stock.vendor && stock.vendor.vendorId) { // FIX: Check if vendor exists
+            const vendorId = stock.vendor.vendorId;
+            // Check if item is already in cart
+            const cartQuantity = getCartItemQuantity(productId, vendorId);
+            initialQuantities[vendorId] = cartQuantity > 0 ? cartQuantity : 1;
           }
         });
         setQuantities(initialQuantities);
@@ -65,11 +69,18 @@ export default function ProductDetails() {
       }
     };
 
-    fetchData();
-  }, [productId]);
+    if (productId) {
+      fetchData();
+    }
+  }, [productId, currentUser]);
 
-  // Handle quantity change
+  // Handle quantity change - FIXED: Check if vendor exists
   const handleQuantityChange = (vendorId, newQuantity) => {
+    if (!vendorId) {
+      console.error('vendorId is undefined');
+      return;
+    }
+    
     let qty = parseInt(newQuantity) || 1;
     
     const vendorStock = stocks.find(stock => 
@@ -93,49 +104,60 @@ export default function ProductDetails() {
     });
   };
 
-  // Handle increment
+  // Handle increment - FIXED: Check if vendor exists
   const handleIncrement = (vendorId) => {
+    if (!vendorId) {
+      console.error('vendorId is undefined');
+      return;
+    }
     const currentQty = quantities[vendorId] || 1;
     handleQuantityChange(vendorId, currentQty + 1);
   };
 
-  // Handle decrement
+  // Handle decrement - FIXED: Check if vendor exists
   const handleDecrement = (vendorId) => {
+    if (!vendorId) {
+      console.error('vendorId is undefined');
+      return;
+    }
     const currentQty = quantities[vendorId] || 1;
     if (currentQty > 1) {
       handleQuantityChange(vendorId, currentQty - 1);
     }
   };
 
-  // Handle manual input change
+  // Handle manual input change - FIXED: Check if vendor exists
   const handleInputChange = (vendorId, value) => {
+    if (!vendorId) {
+      console.error('vendorId is undefined');
+      return;
+    }
     handleQuantityChange(vendorId, value);
   };
 
-  // Handle Add to Cart - UPDATED
+  // Handle Add to Cart - FIXED: Check if vendor exists
   const handleAddToCart = async (stock) => {
     try {
+      // FIX: Check if vendor exists
+      if (!stock.vendor || !stock.vendor.vendorId) {
+        alert('Vendor information is missing');
+        return;
+      }
+
       const vendorId = stock.vendor.vendorId;
-      const productId = product.productId;
+      const productId = product.productId; // FIX: Use productId from your model
       const qty = quantities[vendorId] || 1;
       const vendorName = stock.vendor.businessName || "Vendor";
       const productName = product.productName || "Product";
 
-          console.log("🛒 handleAddToCart called with:");
-      console.log("   vendorId:", vendorId);
-      console.log("   productId:", productId);
-      console.log("   quantity:", qty);
-      console.log("   currentUser:", currentUser);
-      console.log("   currentUser.userId:", currentUser?.userId);
-
-      console.log(`Adding to cart:`, {
-        userId: currentUser?.userId,
-        productId,
+      console.log("🛒 handleAddToCart called with:", {
         vendorId,
-        quantity: qty
+        productId,
+        quantity: qty,
+        currentUser
       });
 
-      // Check if user is logged in using currentUser from context
+      // Check if user is logged in
       if (!currentUser) {
         alert('Please login to add items to cart');
         navigate('/login', { 
@@ -151,28 +173,73 @@ export default function ProductDetails() {
       }
 
       // Set loading state for this specific vendor
-      setAddingToCart(vendorId);
+      setAddingToCart(prev => ({ ...prev, [vendorId]: true }));
 
-      // Call the cart context function
-      const success = await addToCart(productId, vendorId, qty);
+      // Check if item already exists in cart
+      const existingCartItemId = getCartItemId(productId, vendorId);
       
-      // Reset loading state
-      setAddingToCart(null);
-
-      if (success) {
-        // Show success message
-        alert(`✅ Successfully added ${qty} ${productName}(s) from ${vendorName} to cart!\n\n` +
-              `Price: ₹${stock.price} per unit\n` +
-              `Total: ₹${(qty * stock.price).toFixed(2)}`);
+      if (existingCartItemId) {
+        // Item exists, update quantity
+        const currentCartQty = getCartItemQuantity(productId, vendorId);
+        const newTotalQty = currentCartQty + qty;
+        
+        if (newTotalQty > stock.quantity) {
+          alert(`Cannot add ${qty} more items. Total would be ${newTotalQty}, but only ${stock.quantity} available.`);
+          setAddingToCart(prev => ({ ...prev, [vendorId]: false }));
+          return;
+        }
+        
+        await updateQuantity(existingCartItemId, newTotalQty);
+        alert(`✅ Updated quantity to ${newTotalQty} for ${productName} from ${vendorName}`);
       } else {
-        alert('❌ Failed to add item to cart. Please try again.');
+        // New item, add to cart
+        const success = await addToCart(productId, vendorId, qty);
+        
+        if (success) {
+          alert(`✅ Successfully added ${qty} ${productName}(s) from ${vendorName} to cart!\n\n` +
+                `Price: ₹${stock.price} per unit\n` +
+                `Total: ₹${(qty * stock.price).toFixed(2)}`);
+        }
       }
 
     } catch (error) {
       console.error('Error in handleAddToCart:', error);
-      setAddingToCart(null);
       alert('An error occurred while adding to cart. Please try again.');
+    } finally {
+      // Reset loading state
+      const vendorId = stock.vendor?.vendorId;
+      if (vendorId) {
+        setAddingToCart(prev => ({ ...prev, [vendorId]: false }));
+      }
     }
+  };
+
+  // Check if item is already in cart
+  const isItemInCart = (vendorId) => {
+    if (!currentUser || !product || !vendorId) return false;
+    return getCartItemQuantity(product.productId, vendorId) > 0; // FIX: Use productId
+  };
+
+  // Get button text based on state
+  const getButtonText = (vendorId, stock) => {
+    if (!currentUser) {
+      return "Login to Add to Cart";
+    }
+    
+    if (currentUser.role?.roleName !== 'Customer') {
+      return "Customers Only";
+    }
+    
+    if (addingToCart[vendorId]) {
+      return "Adding...";
+    }
+    
+    if (vendorId && isItemInCart(vendorId)) {
+      const cartQty = getCartItemQuantity(product.productId, vendorId);
+      return `${cartQty} in Cart - Add More`;
+    }
+    
+    return "Add to Cart";
   };
 
   // ================= LOADING STATE =================
@@ -327,12 +394,20 @@ export default function ProductDetails() {
       ) : (
         <Row>
           {stocks.map((stock) => {
+            // FIX: Check if vendor exists
+            if (!stock.vendor || !stock.vendor.vendorId) {
+              console.warn('Stock has no vendor:', stock);
+              return null; // Skip this stock item
+            }
+            
             const vendor = stock.vendor;
             const vendorId = vendor.vendorId;
             const currentQty = quantities[vendorId] || 1;
             const isLowStock = stock.quantity > 0 && stock.quantity < 10;
-            const isAdding = addingToCart === vendorId;
+            const isAdding = addingToCart[vendorId];
             const canAddToCart = currentUser && currentUser.role?.roleName === 'Customer';
+            const isInCart = vendorId && isItemInCart(vendorId);
+            const cartQty = isInCart ? getCartItemQuantity(product.productId, vendorId) : 0;
             
             return (
               <Col key={stock.stockId} lg={4} md={6} className="mb-4">
@@ -340,7 +415,7 @@ export default function ProductDetails() {
                   <Card.Body>
                     <Card.Title className="text-primary mb-3">
                       <i className="bi bi-shop me-2"></i>
-                      {vendor.businessName}
+                      {vendor.businessName || "Unknown Vendor"}
                     </Card.Title>
                     
                     {vendor.user && (
@@ -357,7 +432,7 @@ export default function ProductDetails() {
                           <p className="text-muted small mb-0">per unit</p>
                         </div>
                         <span className="fs-4 fw-bold text-success">
-                          ₹{stock.price.toFixed(2)}
+                          ₹{stock.price ? stock.price.toFixed(2) : '0.00'}
                         </span>
                       </div>
                       
@@ -370,6 +445,13 @@ export default function ProductDetails() {
                           {stock.quantity} units
                         </span>
                       </div>
+
+                      {isInCart && (
+                        <div className="alert alert-info mb-3 py-2">
+                          <i className="bi bi-cart-check me-2"></i>
+                          <small>You have {cartQty} in cart</small>
+                        </div>
+                      )}
 
                       <div className="d-flex justify-content-between align-items-center">
                         <div>
@@ -386,7 +468,7 @@ export default function ProductDetails() {
                     <div className="mb-4">
                       <Form.Label className="fw-bold mb-3">
                         <i className="bi bi-cart me-2"></i>
-                        Select Quantity
+                        Select Quantity to {isInCart ? "Add More" : "Add"}
                       </Form.Label>
                       <div className="d-flex align-items-center justify-content-between">
                         <Button 
@@ -433,15 +515,15 @@ export default function ProductDetails() {
                         <p className="mb-0">
                           <strong>Total:</strong> 
                           <span className="text-success fs-5 ms-2">
-                            ₹{(currentQty * stock.price).toFixed(2)}
+                            ₹{(currentQty * (stock.price || 0)).toFixed(2)}
                           </span>
                         </p>
                       </div>
                     </div>
 
-                    {/* ADD TO CART BUTTON - Conditionally enabled */}
+                    {/* ADD TO CART BUTTON */}
                     <Button
-                      variant={!canAddToCart ? "secondary" : isAdding ? "secondary" : "primary"}
+                      variant={isInCart ? "warning" : "primary"}
                       className="w-100 py-3 fs-5"
                       onClick={() => handleAddToCart(stock)}
                       disabled={stock.quantity === 0 || isAdding || !canAddToCart}
@@ -458,23 +540,12 @@ export default function ProductDetails() {
                             aria-hidden="true"
                             className="me-2"
                           />
-                          Adding to Cart...
-                        </>
-                      ) : !currentUser ? (
-                        <>
-                          <i className="bi bi-lock me-2"></i>
-                          Login to Add to Cart
-                        </>
-                      ) : currentUser.role?.roleName !== 'Customer' ? (
-                        <>
-                          <i className="bi bi-x-circle me-2"></i>
-                          Customers Only
+                          Adding...
                         </>
                       ) : (
                         <>
-                          <i className="bi bi-cart-plus me-2"></i>
-                          Add to Cart
-                          {stock.quantity === 0 && " (Out of Stock)"}
+                          <i className={`bi ${isInCart ? 'bi-cart-plus-fill' : 'bi-cart-plus'} me-2`}></i>
+                          {getButtonText(vendorId, stock)}
                         </>
                       )}
                     </Button>

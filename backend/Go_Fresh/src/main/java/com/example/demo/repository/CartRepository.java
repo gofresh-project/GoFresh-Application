@@ -6,16 +6,18 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.model.Cart;
+import com.example.demo.model.CartStatus;
+import com.example.demo.model.User;
+
 import java.util.Optional;
+
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
     
-    // Find active cart for user
-    @Query("SELECT c FROM Cart c WHERE c.user.userId = :userId AND c.status = 'ACTIVE'")
-    Optional<Cart> findActiveCartByUserId(@Param("userId") int userId);
+    @Query("SELECT c FROM Cart c WHERE c.user = :user AND c.status = :status")
+    Optional<Cart> findByUserAndStatus(@Param("user") User user, @Param("status") CartStatus status);
     
-    // Check if user has active cart
-    @Query("SELECT COUNT(c) > 0 FROM Cart c WHERE c.user.userId = :userId AND c.status = 'ACTIVE'")
-    boolean existsActiveCartByUserId(@Param("userId") int userId);
+    Optional<Cart> findByUser(User user);
 }
+

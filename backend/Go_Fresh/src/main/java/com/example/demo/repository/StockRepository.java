@@ -38,10 +38,7 @@ public interface StockRepository extends JpaRepository<Stock, Integer> {
     
     List<Stock> findByVendorVendorId(int vendorId);
     
-    
-    
-    //For Add to Cart
-    @Query("SELECT s FROM Stock s WHERE s.product.prodId = :productId AND s.vendor.vendorId = :vendorId")
-    Optional<Stock> findByProductIdAndVendorId(@Param("productId") int productId, @Param("vendorId") int vendorId);
+    @Query("SELECT s FROM Stock s WHERE s.product.prodId = :prodId AND s.vendor.vendorId = :vendorId")
+    Optional<Stock> findByProductIdAndVendorId(@Param("prodId") int productId, @Param("vendorId") int vendorId);
     
 }
