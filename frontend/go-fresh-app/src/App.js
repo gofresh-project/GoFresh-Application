@@ -1,21 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-import { Link, Route, Routes } from 'react-router-dom';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import LoginComp from "./components/LoginComp";
+import RegisterComp from "./components/RegisterComp";
 import WelcomePage from "./components/Welcome";
-import LoginComp from './components/LoginComp';
-import Registeromp from './components/RegisterComp';
+import Home from "./pages/Home";
+import Products from "./pages/Products";
+import Vendor from "./pages/Vendor";
+import { CartProvider } from "./context/CartContext";
 
 function App() {
   return (
-    <div>
-      
-       <Routes>
-        <Route path='/login' element={ <LoginComp />} />
-        <Route path='/login' element={ <LoginComp />} />
-        <Route path='/register' element={ <Registeromp />} />
-             <Route path="/" element={<WelcomePage />} />
-       </Routes>
-    </div>
+    <CartProvider>
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<WelcomePage />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<LoginComp />} />
+        <Route path="/register" element={<RegisterComp />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/vendor" element={<Vendor />} />
+      </Routes>
+    </CartProvider>
   );
 }
 

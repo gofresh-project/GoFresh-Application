@@ -1,0 +1,84 @@
+/* ================================
+   GOFRESH FOOTER (FORCED FIXED)
+   ================================ */
+
+.gofresh-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  background-color: #020617;
+  color: #e5e7eb;
+  border-top: 1px solid #16a34a;
+  z-index: 1000;
+}
+
+/* Compact footer to avoid covering content */
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+/* Brand */
+.footer-brand {
+  color: #22c55e;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.footer-text {
+  color: #9ca3af;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* Titles */
+.footer-title {
+  color: #22c55e;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+/* Links */
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 4px;
+}
+
+.footer-section ul li a {
+  color: #e5e7eb;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+  color: #22c55e;
+}
+
+/* Contact */
+.footer-section p {
+  margin: 3px 0;
+  font-size: 0.85rem;
+  color: #d1d5db;
+}
+
+/* Bottom bar */
+.footer-bottom {
+  text-align: center;
+  padding: 6px;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  border-top: 1px solid #16a34a;
+}

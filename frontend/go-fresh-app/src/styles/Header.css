@@ -1,0 +1,386 @@
+/* ===== Header Styles ===== */
+.gofresh-navbar {
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  border-bottom: 2px solid #e9ecef;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  padding: 10px 0;
+}
+
+/* Brand */
+.gofresh-brand {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #28a745 !important;
+  display: flex;
+  align-items: center;
+}
+
+.brand-icon {
+  font-size: 2rem;
+  margin-right: 10px;
+}
+
+/* Navigation Links */
+.gofresh-nav .nav-link {
+  color: #495057 !important;
+  font-weight: 500;
+  padding: 8px 15px !important;
+  margin: 0 5px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.gofresh-nav .nav-link:hover {
+  background: #e9f7ef;
+  color: #28a745 !important;
+  transform: translateY(-1px);
+}
+
+.nav-icon {
+  margin-right: 8px;
+  font-size: 1.1em;
+}
+
+/* Dropdown */
+.nav-dropdown .dropdown-menu {
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.dropdown-icon {
+  margin-right: 10px;
+  font-size: 1.1em;
+}
+
+/* ===== Right Section ===== */
+.header-right-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Search Bar */
+.header-search {
+  min-width: 250px;
+}
+
+.search-wrapper {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  font-size: 1.1em;
+}
+
+.search-input {
+  padding-left: 40px !important;
+  border: 1px solid #dee2e6;
+  border-radius: 25px !important;
+  height: 40px;
+}
+
+.search-input:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* Cart Button */
+.cart-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: #fff;
+  border: 2px solid #28a745;
+  border-radius: 50%;
+  color: #28a745;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cart-button:hover {
+  background: #28a745;
+  color: white;
+  transform: scale(1.05);
+}
+
+.cart-icon {
+  font-size: 1.3em;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #dc3545;
+  color: white;
+  font-size: 0.7em;
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== User Profile ===== */
+.user-profile-wrapper {
+  position: relative;
+}
+
+/* Profile Trigger */
+.profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 15px;
+  background: #f8f9fa;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.profile-trigger:hover {
+  background: #e9f7ef;
+  border-color: #28a745;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.user-greeting {
+  display: flex;
+  flex-direction: column;
+}
+
+.greeting-text {
+  font-size: 0.8em;
+  color: #6c757d;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #212529;
+  font-size: 0.9em;
+}
+
+.dropdown-arrow {
+  font-size: 0.7em;
+  color: #6c757d;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+  color: #28a745;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 320px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: slideDown 0.2s ease;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Profile Header in Dropdown */
+.profile-header {
+  padding: 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-avatar-large {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.5em;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 5px;
+}
+
+.profile-role {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 0.75em;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.profile-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.contact-item {
+  font-size: 0.8em;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Dropdown Divider */
+.dropdown-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #dee2e6, transparent);
+  margin: 0;
+}
+
+/* Dropdown Actions */
+.dropdown-actions {
+  padding: 10px 0;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  color: #495057;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: #f8f9fa;
+  color: #28a745;
+}
+
+.action-icon {
+  font-size: 1.1em;
+}
+
+/* Logout Button */
+.logout-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  color: #dc3545;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #fff5f5;
+}
+
+.logout-icon {
+  font-size: 1.1em;
+}
+
+/* Login Button */
+.login-link {
+  text-decoration: none;
+}
+
+.login-button {
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 992px) {
+  .header-right-section {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 15px;
+    gap: 10px;
+  }
+  
+  .header-search {
+    width: 100%;
+    min-width: auto;
+    margin-bottom: 10px;
+  }
+  
+  .profile-dropdown {
+    position: fixed;
+    top: 80px;
+    right: 15px;
+    left: 15px;
+    width: auto;
+  }
+  
+  .cart-button {
+    align-self: flex-start;
+  }
+  
+  .user-profile-wrapper {
+    width: 100%;
+  }
+  
+  .profile-trigger {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .gofresh-brand {
+    font-size: 1.5rem;
+  }
+  
+  .nav-icon, .dropdown-icon {
+    margin-right: 5px;
+  }
+}

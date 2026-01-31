@@ -1,0 +1,125 @@
+.stock-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background: white;
+  position: relative;
+  transition: box-shadow 0.3s;
+}
+
+.stock-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-info h4 {
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+.category {
+  color: #7f8c8d;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.price-section,
+.quantity-section {
+  margin-bottom: 15px;
+}
+
+.price-section label,
+.quantity-section label {
+  display: block;
+  font-weight: 600;
+  color: #34495e;
+  margin-bottom: 5px;
+}
+
+.price-section input,
+.quantity-section input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.price-section .value,
+.quantity-section .value {
+  font-size: 18px;
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-edit {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.btn-edit:hover {
+  background: #2980b9;
+}
+
+.btn-confirm {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.btn-confirm:hover {
+  background: #219653;
+}
+
+.btn-confirm:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+.btn-cancel {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.btn-cancel:hover {
+  background: #c0392b;
+}
+
+.status {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status.in-stock {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.out-stock {
+  background: #f8d7da;
+  color: #721c24;
+}
