@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { updateStock } from "../services/stockService";
-import "../styles/StockCard.css";
-
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
 
 const StockCard = ({ stock, onUpdate }) => {
   const [editing, setEditing] = useState(false);
@@ -12,9 +12,17 @@ const StockCard = ({ stock, onUpdate }) => {
   const handleUpdate = async () => {
     setLoading(true);
     try {
-      await updateStock(stock.stockId, price, quantity);
-      setEditing(false);
-      onUpdate(); // Refresh parent list
+      const response = await fetch(`http://localhost:8080/stocks/${stock.stockId}?price=${price}&quantity=${quantity}`, {
+        method: "PUT",
+      });
+      
+      if (response.ok) {
+        setEditing(false);
+        onUpdate(); // Refresh parent list
+        alert("Stock updated successfully!");
+      } else {
+        alert("Failed to update stock");
+      }
     } catch (error) {
       console.error("Update failed:", error);
       alert("Failed to update stock");
@@ -24,80 +32,90 @@ const StockCard = ({ stock, onUpdate }) => {
   };
 
   return (
-    <div className="stock-card">
-      {/* Product Info */}
-      <div className="product-info">
-        <h4>{stock.product.productName}</h4>
-        <p className="category">
-          Category: {stock.product.category?.category || "N/A"}
-        </p>
-      </div>
+    <Card className="h-100 shadow-sm">
+      <Card.Body>
+        <Card.Title>{stock.product?.productName || "Unknown Product"}</Card.Title>
+        
+        <Card.Subtitle className="mb-2 text-muted">
+          {stock.product?.category?.category || "No Category"}
+        </Card.Subtitle>
 
-      {/* Price Section */}
-      <div className="price-section">
-        <label>Price (₹):</label>
-        {editing ? (
-          <input
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(parseFloat(e.target.value))}
-            min="0"
-            step="0.01"
-          />
-        ) : (
-          <p className="value">₹ {stock.price.toFixed(2)}</p>
-        )}
-      </div>
+        {/* Price Section */}
+        <div className="mb-3">
+          <strong>Price:</strong>
+          {editing ? (
+            <Form.Control
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(parseFloat(e.target.value))}
+              min="0"
+              step="0.01"
+              className="mt-1"
+            />
+          ) : (
+            <p className="fs-5 text-success">₹{stock.price.toFixed(2)}</p>
+          )}
+        </div>
 
-      {/* Quantity Section */}
-      <div className="quantity-section">
-        <label>Quantity:</label>
-        {editing ? (
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(parseInt(e.target.value))}
-            min="0"
-          />
-        ) : (
-          <p className="value">{stock.quantity} units</p>
-        )}
-      </div>
+        {/* Quantity Section */}
+        <div className="mb-3">
+          <strong>Quantity:</strong>
+          {editing ? (
+            <Form.Control
+              type="number"
+              value={quantity}
+              onChange={(e) => setQuantity(parseInt(e.target.value))}
+              min="0"
+              className="mt-1"
+            />
+          ) : (
+            <p className="fs-5">{stock.quantity} units</p>
+          )}
+        </div>
 
-      {/* Action Buttons */}
-      <div className="action-buttons">
-        {editing ? (
-          <>
-            <button
-              onClick={handleUpdate}
-              disabled={loading}
-              className="btn-confirm"
+        {/* Stock Status */}
+        <div className="mb-3">
+          <span className={`badge ${stock.quantity > 0 ? 'bg-success' : 'bg-danger'}`}>
+            {stock.quantity > 0 ? 'In Stock' : 'Out of Stock'}
+          </span>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="d-flex gap-2">
+          {editing ? (
+            <>
+              <Button
+                variant="success"
+                onClick={handleUpdate}
+                disabled={loading}
+                className="flex-fill"
+              >
+                {loading ? "Updating..." : "Confirm"}
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setEditing(false);
+                  setPrice(stock.price);
+                  setQuantity(stock.quantity);
+                }}
+                className="flex-fill"
+              >
+                Cancel
+              </Button>
+            </>
+          ) : (
+            <Button
+              variant="primary"
+              onClick={() => setEditing(true)}
+              className="w-100"
             >
-              {loading ? "Updating..." : "Confirm"}
-            </button>
-            <button
-              onClick={() => {
-                setEditing(false);
-                setPrice(stock.price);
-                setQuantity(stock.quantity);
-              }}
-              className="btn-cancel"
-            >
-              Cancel
-            </button>
-          </>
-        ) : (
-          <button onClick={() => setEditing(true)} className="btn-edit">
-            Edit Stock
-          </button>
-        )}
-      </div>
-
-      {/* Status */}
-      <div className={`status ${stock.quantity > 0 ? "in-stock" : "out-stock"}`}>
-        {stock.quantity > 0 ? "In Stock" : "Out of Stock"}
-      </div>
-    </div>
+              Edit Stock
+            </Button>
+          )}
+        </div>
+      </Card.Body>
+    </Card>
   );
 };
 

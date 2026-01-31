@@ -87,4 +87,17 @@ public class StockController {
     }
     
     
+    //get product Want to Display Stocks On ProductDetails Page
+    @GetMapping("/stocks/product/{productId}")
+    public List<Stock> getStocksByProductId(@PathVariable int productId) {
+        return stockService.getStocksByProductId(productId);
+    }
+
+    
+    
+    
+    
+    
+    
+    
 }
