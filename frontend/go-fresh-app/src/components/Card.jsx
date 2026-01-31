@@ -4,11 +4,10 @@ import "../styles/Card.css";
 
 const Card = ({ product }) => {
   if (!product) return null;
-
   return (
     // Change from /product/${product.prodId} to /products/${product.prodId}
     <Link
-      to={`/products/${product.prodId}`}   // ← CHANGED TO /products (plural)  //Mapping with ProductDetails
+      to={`/products/${product.id}`}   // ← CHANGED TO /products (plural)  //Mapping with ProductDetails
       style={{ textDecoration: "none", color: "inherit" }}
     >
       <div className={`product-card`}>

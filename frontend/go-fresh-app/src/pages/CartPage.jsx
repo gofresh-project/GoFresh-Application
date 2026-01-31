@@ -18,6 +18,7 @@ export default function CartPage() {
     cart, 
     loading, 
     error,
+    currentUser, // Get currentUser from context
     removeFromCart, 
     updateQuantity, 
     clearCart, 
@@ -33,11 +34,15 @@ export default function CartPage() {
   // Refresh cart on component mount
   useEffect(() => {
     refreshCart();
-  }, []);
+  }, [currentUser]);
 
   // Handle quantity change for an item
   const handleQuantityChange = async (cartItemId, newQuantity) => {
-    if (newQuantity < 1) return;
+    if (newQuantity < 1) {
+      // If quantity becomes 0, remove the item
+      await removeFromCart(cartItemId);
+      return;
+    }
     
     setUpdating({ ...updating, [cartItemId]: true });
     await updateQuantity(cartItemId, newQuantity);
@@ -70,15 +75,21 @@ export default function CartPage() {
     }
 
     // Check if user is logged in
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) {
+    if (!currentUser) {
       alert('Please login to checkout');
       navigate('/login', { state: { from: '/cart' } });
       setCheckoutLoading(false);
       return;
     }
 
-    // Navigate to checkout page (you'll create this later)
+    // Check if user is a customer
+    if (currentUser.role?.roleName !== 'Customer') {
+      alert('Only customers can checkout');
+      setCheckoutLoading(false);
+      return;
+    }
+
+    // Navigate to checkout page
     setTimeout(() => {
       navigate('/checkout');
       setCheckoutLoading(false);
@@ -165,7 +176,7 @@ export default function CartPage() {
                   <tr>
                     <th>Product</th>
                     <th>Vendor</th>
-                    <th className="text-center">Price</th>
+                    <th className="text-center">Unit Price</th>
                     <th className="text-center">Quantity</th>
                     <th className="text-center">Total</th>
                     <th className="text-center">Action</th>
@@ -177,12 +188,15 @@ export default function CartPage() {
                       {/* Product Column */}
                       <td>
                         <div className="d-flex align-items-center">
-                          {item.product.imageUrl ? (
+                          {item.product?.imageUrl ? (
                             <img 
                               src={item.product.imageUrl} 
                               alt={item.product.productName}
                               className="rounded me-3"
                               style={{ width: '60px', height: '60px', objectFit: 'cover' }}
+                              onError={(e) => {
+                                e.target.src = "/default-product.png";
+                              }}
                             />
                           ) : (
                             <div className="bg-light rounded me-3 d-flex align-items-center justify-content-center"
@@ -191,9 +205,9 @@ export default function CartPage() {
                             </div>
                           )}
                           <div>
-                            <strong>{item.product.productName}</strong>
+                            <strong>{item.product?.productName || "Unknown Product"}</strong>
                             <div className="text-muted small">
-                              {item.product.category?.category || 'General'}
+                              {item.product?.category?.category || 'General'}
                             </div>
                           </div>
                         </div>
@@ -202,10 +216,10 @@ export default function CartPage() {
                       {/* Vendor Column */}
                       <td>
                         <div>
-                          <strong>{item.vendor.businessName}</strong>
+                          <strong>{item.vendor?.businessName || "Unknown Vendor"}</strong>
                           <div className="text-muted small">
                             <i className="bi bi-geo-alt me-1"></i>
-                            {item.vendor.area?.areaName || 'N/A'}
+                            {item.vendor?.area?.areaName || 'N/A'}
                           </div>
                         </div>
                       </td>
@@ -213,7 +227,7 @@ export default function CartPage() {
                       {/* Price Column */}
                       <td className="text-center align-middle">
                         <span className="text-success fw-bold">
-                          ₹{item.product.price.toFixed(2)}
+                          ₹{item.price ? item.price.toFixed(2) : '0.00'}
                         </span>
                       </td>
                       
@@ -253,7 +267,7 @@ export default function CartPage() {
                       {/* Total Column */}
                       <td className="text-center align-middle">
                         <span className="fw-bold fs-5 text-primary">
-                          ₹{(item.product.price * item.quantity).toFixed(2)}
+                          ₹{((item.price || 0) * item.quantity).toFixed(2)}
                         </span>
                       </td>
                       
@@ -313,13 +327,17 @@ export default function CartPage() {
                 size="lg" 
                 className="w-100 py-3 mb-3"
                 onClick={handleCheckout}
-                disabled={checkoutLoading || cart.length === 0}
+                disabled={checkoutLoading || cart.length === 0 || !currentUser || currentUser.role?.roleName !== 'Customer'}
               >
                 {checkoutLoading ? (
                   <>
                     <Spinner animation="border" size="sm" className="me-2" />
                     Processing...
                   </>
+                ) : !currentUser ? (
+                  "Please Login to Checkout"
+                ) : currentUser.role?.roleName !== 'Customer' ? (
+                  "Customers Only"
                 ) : (
                   <>
                     <i className="bi bi-lock-fill me-2"></i>
