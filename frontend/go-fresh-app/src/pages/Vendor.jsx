@@ -46,7 +46,7 @@ export default function VendorProducts() {
 
   const fetchAllProducts = async () => {
     try {
-      const response = await fetch("http://localhost:8080/product/allproducts");
+      const response = await fetch("http://localhost:8080/product");
       const data = await response.json();
       setProducts(data);
     } catch (error) {
