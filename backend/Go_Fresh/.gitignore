@@ -20,12 +20,14 @@ target/
 *.ipr
 
 ### NetBeans ###
+.metadata/
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 build/
+bin/
 !**/src/main/**/build/
 !**/src/test/**/build/
 

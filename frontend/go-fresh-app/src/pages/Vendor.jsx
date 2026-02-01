@@ -12,7 +12,7 @@ import Modal from "react-bootstrap/Modal";
 export default function VendorProducts() {
   const [stocks, setStocks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [vendorId, setVendorId] = useState(2); // Default vendor ID, you can get from auth
+  const [vendorId, setVendorId] = useState(2); // Get from auth context
   
   // Filter states
   const [categoryFilter, setCategoryFilter] = useState("ALL");
@@ -33,7 +33,8 @@ export default function VendorProducts() {
   const fetchStocks = async () => {
     setLoading(true);
     try {
-      const data = await getStocksByVendor(vendorId);
+      const response = await fetch(`http://localhost:8080/stocks/vendor/${vendorId}`);
+      const data = await response.json();
       setStocks(data);
     } catch (error) {
       console.error("Error fetching stocks:", error);
@@ -45,18 +46,19 @@ export default function VendorProducts() {
 
   const fetchAllProducts = async () => {
     try {
-      const response = await getAllProducts();
-      setProducts(response.data);
+      const response = await fetch("http://localhost:8080/product/allproducts");
+      const data = await response.json();
+      setProducts(data);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
 
-  // Filter logic
+  // Filter logic - updated to match Stock object structure
   const filteredStocks = stocks.filter((stock) => {
     const categoryMatch =
       categoryFilter === "ALL" ||
-      (stock.product.category?.category === categoryFilter);
+      (stock.product?.category?.category === categoryFilter);
 
     const stockMatch =
       stockFilter === "ALL" ||
@@ -73,15 +75,31 @@ export default function VendorProducts() {
     }
 
     try {
-      // You'll need to import addStock from stockService
-      // await addStock(selectedProduct, vendorId, parseFloat(newPrice), parseInt(newQuantity));
-      alert("Stock added successfully!");
-      setShowAddModal(false);
-      setSelectedProduct("");
-      setNewPrice("");
-      setNewQuantity("");
-      fetchStocks(); // Refresh list
+      const response = await fetch("http://localhost:8080/stocks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: parseInt(selectedProduct),
+          vendorId: vendorId,
+          price: parseFloat(newPrice),
+          quantity: parseInt(newQuantity),
+        }),
+      });
+
+      if (response.ok) {
+        alert("Stock added successfully!");
+        setShowAddModal(false);
+        setSelectedProduct("");
+        setNewPrice("");
+        setNewQuantity("");
+        fetchStocks();
+      } else {
+        alert("Failed to add stock");
+      }
     } catch (error) {
+      console.error(error);
       alert("Failed to add stock");
     }
   };

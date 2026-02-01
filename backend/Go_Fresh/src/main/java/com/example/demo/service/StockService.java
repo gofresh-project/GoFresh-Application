@@ -64,6 +64,11 @@
 	        return stockRepository.findByVendorVendorId(vendorId);
 	    }
 	    
+	    //get product Want to Display Stocks On ProductDetails Page
+	    public List<Stock> getStocksByProductId(int productId) {
+	        return stockRepository.findStocksByProductId(productId);
+	    }
+
 	    
 	    public Stock getStockById(int stockId) {
 	        return stockRepository.findById(stockId)
@@ -75,18 +80,7 @@
 	    }
 	    
 	    
-	//    
-	//    public List<Stock> getFilteredStocks(
-	//            Integer productId,
-	//            Integer vendorId,
-	//            Double minPrice,
-	//            Double maxPrice,
-	//            Boolean inStock) {
-	//
-	//        return stockRepository.filterStocks(
-	//            productId, vendorId, minPrice, maxPrice, inStock
-	//        );
-	//    }
+
 	    
 	    
 	    
