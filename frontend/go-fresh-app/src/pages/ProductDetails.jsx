@@ -145,7 +145,7 @@ export default function ProductDetails() {
       }
 
       const vendorId = stock.vendor.vendorId;
-      const productId = product.productId; // FIX: Use productId from your model
+      const productId = product.prodId; // FIX: Use productId from your model
       const qty = quantities[vendorId] || 1;
       const vendorName = stock.vendor.businessName || "Vendor";
       const productName = product.productName || "Product";
