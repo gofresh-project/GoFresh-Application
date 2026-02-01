@@ -13,7 +13,7 @@ const Card = ({ product }) => {
       <div className={`product-card`}>
         <div className="image-wrapper">
           <img 
-            src={product.imageUrl}
+            src={product.image}
             alt={product.productName}
             onError={(e) => {
               e.target.src = "/default-product.png";
@@ -24,9 +24,7 @@ const Card = ({ product }) => {
         <div className="card-body">
           <h3>{product.productName}</h3>
           <p className="price">
-            {product.price && product.price > 0 
-              ? `₹ ${product.price.toFixed(2)} / kg`
-              : "Price not available"}
+            {product.name}
           </p>
 
           <button>

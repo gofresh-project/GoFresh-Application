@@ -8,15 +8,49 @@ import Button from "react-bootstrap/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import "../styles/Header.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PersonCircle, BoxArrowRight, PersonBadge, Envelope, Telephone } from 'react-bootstrap-icons';
 
 export default function Header() {
   // Use the cart context - FIXED: Get ALL functions you need
-  const { getCartItemCount, updateUser } = useCart(); 
+  const { getCartItemCount, updateUser, user:cartUser } = useCart(); 
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
+
+  // Load user from localStorage on component mount and when cartUser changes
+  useEffect(() => {
+    const loadUser = () => {
+      try {
+        // First check if user is in CartContext
+        if (cartUser) {
+          setUser(cartUser);
+        } else {
+          // Fallback to localStorage
+          const storedUser = localStorage.getItem("user");
+          if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            setUser(parsedUser);
+          } else {
+            setUser(null);
+          }
+        }
+      } catch (error) {
+        console.error("Error loading user:", error);
+        setUser(null);
+      }
+    };
+    
+    loadUser();
+    
+    // Also listen for storage changes (in case user logs in from another tab)
+    const handleStorageChange = () => {
+      loadUser();
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, [cartUser]);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
