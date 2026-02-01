@@ -98,6 +98,9 @@ export default function Header() {
             <Nav.Link as={Link} to="/products">
               <span className="nav-icon">🛒</span> Products
             </Nav.Link>
+            <Nav.Link as={Link} to="/orders">
+            <span className="nav-icon">🛍️</span> My Orders
+            </Nav.Link>
 
             <NavDropdown 
               title={

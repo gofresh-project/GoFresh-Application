@@ -8,6 +8,9 @@ import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Vendor from "./pages/Vendor";
 import { CartProvider } from "./context/CartContext";
+import MyOrders from "./pages/MyOrders";
+import OrderDetails from "./pages/OrderDetails";
+
 
 function App() {
   return (
@@ -21,6 +24,10 @@ function App() {
         <Route path="/register" element={<RegisterComp />} />
         <Route path="/products" element={<Products />} />
         <Route path="/vendor" element={<Vendor />} />
+         <Route path="/orders" element={<MyOrders />} />
+        <Route path="/order/:id" element={<OrderDetails />} />
+        <Route path="/orders" element={<MyOrders />} />
+
       </Routes>
     </CartProvider>
   );
