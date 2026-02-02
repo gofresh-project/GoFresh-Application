@@ -1,0 +1,231 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|c:\\users\\canuj\\onedrive\\desktop\\cdac_project2026\\gofresh-application\\admin_backend\\admin_backend\\admin_backend\\models\\vendor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|solutionrelative:admin_backend\\models\\vendor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|c:\\users\\canuj\\onedrive\\desktop\\cdac_project2026\\gofresh-application\\admin_backend\\admin_backend\\admin_backend\\models\\area.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|solutionrelative:admin_backend\\models\\area.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|c:\\users\\canuj\\onedrive\\desktop\\cdac_project2026\\gofresh-application\\admin_backend\\admin_backend\\admin_backend\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|solutionrelative:admin_backend\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|c:\\users\\canuj\\onedrive\\desktop\\cdac_project2026\\gofresh-application\\admin_backend\\admin_backend\\admin_backend\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|solutionrelative:admin_backend\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|c:\\users\\canuj\\onedrive\\desktop\\cdac_project2026\\gofresh-application\\admin_backend\\admin_backend\\admin_backend\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|solutionrelative:admin_backend\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|c:\\users\\canuj\\onedrive\\desktop\\cdac_project2026\\gofresh-application\\admin_backend\\admin_backend\\admin_backend\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|solutionrelative:admin_backend\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|c:\\users\\canuj\\onedrive\\desktop\\cdac_project2026\\gofresh-application\\admin_backend\\admin_backend\\admin_backend\\controllers\\vendorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|solutionrelative:admin_backend\\controllers\\vendorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|c:\\users\\canuj\\onedrive\\desktop\\cdac_project2026\\gofresh-application\\admin_backend\\admin_backend\\admin_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|solutionrelative:admin_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|c:\\users\\canuj\\onedrive\\desktop\\cdac_project2026\\gofresh-application\\admin_backend\\admin_backend\\admin_backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|solutionrelative:admin_backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|c:\\users\\canuj\\onedrive\\desktop\\cdac_project2026\\gofresh-application\\admin_backend\\admin_backend\\admin_backend\\admin_backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|solutionrelative:admin_backend\\admin_backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|c:\\users\\canuj\\onedrive\\desktop\\cdac_project2026\\gofresh-application\\admin_backend\\admin_backend\\admin_backend\\models\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|solutionrelative:admin_backend\\models\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|c:\\users\\canuj\\onedrive\\desktop\\cdac_project2026\\gofresh-application\\admin_backend\\admin_backend\\admin_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|solutionrelative:admin_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|c:\\users\\canuj\\onedrive\\desktop\\cdac_project2026\\gofresh-application\\admin_backend\\admin_backend\\admin_backend\\models\\paymentmode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A29232BC-DD9B-4667-8A82-8FDBDFCE3FC4}|Admin_Backend\\Admin_Backend.csproj|solutionrelative:admin_backend\\models\\paymentmode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Area.cs",
+              "DocumentMoniker": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Models\\Area.cs",
+              "RelativeDocumentMoniker": "Admin_Backend\\Models\\Area.cs",
+              "ToolTip": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Models\\Area.cs",
+              "RelativeToolTip": "Admin_Backend\\Models\\Area.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-02T06:41:30.364Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "VendorController.cs",
+              "DocumentMoniker": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Controllers\\VendorController.cs",
+              "RelativeDocumentMoniker": "Admin_Backend\\Controllers\\VendorController.cs",
+              "ToolTip": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Controllers\\VendorController.cs",
+              "RelativeToolTip": "Admin_Backend\\Controllers\\VendorController.cs",
+              "ViewState": "AgIAAHcAAAAAAAAAAAAAwIAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T16:52:32.336Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Vendor.cs",
+              "DocumentMoniker": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Models\\Vendor.cs",
+              "RelativeDocumentMoniker": "Admin_Backend\\Models\\Vendor.cs",
+              "ToolTip": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Models\\Vendor.cs",
+              "RelativeToolTip": "Admin_Backend\\Models\\Vendor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T16:49:01.222Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Admin_Backend.http",
+              "DocumentMoniker": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Admin_Backend.http",
+              "RelativeDocumentMoniker": "Admin_Backend\\Admin_Backend.http",
+              "ToolTip": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Admin_Backend.http",
+              "RelativeToolTip": "Admin_Backend\\Admin_Backend.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2026-01-31T16:48:43.742Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Admin_Backend\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Models\\User.cs",
+              "RelativeToolTip": "Admin_Backend\\Models\\User.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAA1wBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T06:32:59.447Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "Admin_Backend\\Controllers\\DashboardController.cs",
+              "ToolTip": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "Admin_Backend\\Controllers\\DashboardController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T21:47:27.673Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "Admin_Backend\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "Admin_Backend\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFwAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T21:10:16.036Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\appsettings.json",
+              "RelativeDocumentMoniker": "Admin_Backend\\appsettings.json",
+              "ToolTip": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\appsettings.json",
+              "RelativeToolTip": "Admin_Backend\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-30T21:01:10.011Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Program.cs",
+              "RelativeDocumentMoniker": "Admin_Backend\\Program.cs",
+              "ToolTip": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Program.cs",
+              "RelativeToolTip": "Admin_Backend\\Program.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAACUAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T20:59:39.814Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "PaymentMode.cs",
+              "DocumentMoniker": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Models\\PaymentMode.cs",
+              "RelativeDocumentMoniker": "Admin_Backend\\Models\\PaymentMode.cs",
+              "ToolTip": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Models\\PaymentMode.cs",
+              "RelativeToolTip": "Admin_Backend\\Models\\PaymentMode.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T20:54:54.69Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Models\\Product.cs",
+              "RelativeDocumentMoniker": "Admin_Backend\\Models\\Product.cs",
+              "ToolTip": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Models\\Product.cs",
+              "RelativeToolTip": "Admin_Backend\\Models\\Product.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAkwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T20:52:58.391Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MyDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Models\\MyDbContext.cs",
+              "RelativeDocumentMoniker": "Admin_Backend\\Models\\MyDbContext.cs",
+              "ToolTip": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Models\\MyDbContext.cs",
+              "RelativeToolTip": "Admin_Backend\\Models\\MyDbContext.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAADgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T20:47:26.469Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Controllers\\ProductsController.cs",
+              "RelativeDocumentMoniker": "Admin_Backend\\Controllers\\ProductsController.cs",
+              "ToolTip": "C:\\Users\\canuj\\OneDrive\\Desktop\\CDAC_PROJECT2026\\GoFresh-Application\\Admin_Backend\\Admin_Backend\\Admin_Backend\\Controllers\\ProductsController.cs",
+              "RelativeToolTip": "Admin_Backend\\Controllers\\ProductsController.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAgwEwAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-30T20:40:45.857Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
