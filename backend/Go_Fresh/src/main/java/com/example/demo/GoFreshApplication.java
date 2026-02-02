@@ -8,6 +8,8 @@ public class GoFreshApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GoFreshApplication.class, args);
+	
+		
 	}
 
 }
