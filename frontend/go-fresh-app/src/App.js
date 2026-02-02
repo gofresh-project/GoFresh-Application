@@ -10,13 +10,16 @@ import Vendor from "./pages/Vendor";
 import { CartProvider } from "./context/CartContext";
 import ProductDetails from "./pages/ProductDetails";
 import CartPage from "./pages/CartPage";
+import VendorRegister from "./components/VendorRegistration";
+import { Display } from "react-bootstrap-icons";
 
 function App() {
   return (
     <CartProvider>
-      <Header />
+       <Header />  
 
       <Routes>
+        
         <Route path="/" element={<WelcomePage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<LoginComp />} />
@@ -25,6 +28,11 @@ function App() {
         <Route path="/vendor" element={<Vendor />} />
         <Route path="/products/:productId" element={<ProductDetails />} />
         <Route path="/cart" element={<CartPage />} />
+
+      </Routes>
+
+      <Routes>
+        <Route path="/vendorregister" element={<VendorRegister />} />
 
       </Routes>
     </CartProvider>
