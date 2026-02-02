@@ -1,31 +1,38 @@
+
+import { Link } from "react-router-dom";
 import "../styles/Card.css";
 
 const Card = ({ product }) => {
-  if (!product) return null; // safety check
-
+  if (!product) return null;
   return (
-    <div className={`product-card ${!product.available ? "disabled" : ""}`}>
-      <div className="image-wrapper">
-        <img src={product.image} alt={product.name} />
+    // Change from /product/${product.prodId} to /products/${product.prodId}
+    <Link
+      to={`/products/${product.id}`}   // ← CHANGED TO /products (plural)  //Mapping with ProductDetails
+      style={{ textDecoration: "none", color: "inherit" }}
+    >
+      <div className={`product-card`}>
+        <div className="image-wrapper">
+          <img 
+            src={product.image}
+            alt={product.productName}
+            onError={(e) => {
+              e.target.src = "/default-product.png";
+            }}
+          />
+        </div>
 
-        <span
-          className={`status ${
-            product.available ? "available" : "not-available"
-          }`}
-        >
-          {product.available ? "Available" : "Out of Stock"}
-        </span>
+        <div className="card-body">
+          <h3>{product.productName}</h3>
+          <p className="price">
+            {product.name}
+          </p>
+
+          <button>
+            View Details
+          </button>
+        </div>
       </div>
-
-      <div className="card-body">
-        <h3>{product.name}</h3>
-        <p className="price">₹ {product.price} / kg</p>
-
-        <button disabled={!product.available}>
-          {product.available ? "Add to Cart" : "Unavailable"}
-        </button>
-      </div>
-    </div>
+    </Link>
   );
 };
 

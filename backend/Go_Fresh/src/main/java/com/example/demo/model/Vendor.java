@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -35,13 +36,14 @@ public class Vendor {
 	 // 🔗 Many Vendors → One Area
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "area_id", nullable = false)
+    @JsonIgnoreProperties({"vendors"}) // if Area has List<Vendor>
 	Area area;
 	
 	
-	// 🔗 One Vendor → One User
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-	User user;
+    @JsonIgnore // frontend never needs vendor.user
+    private User user;
 	
 	double rating;  //Might Error
 

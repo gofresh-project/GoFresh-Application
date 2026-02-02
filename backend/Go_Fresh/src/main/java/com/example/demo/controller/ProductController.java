@@ -9,7 +9,7 @@ import com.example.demo.model.Product;
 import com.example.demo.service.ProductService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/product")
 @CrossOrigin(origins = "http://localhost:3000")
 public class ProductController {
 
@@ -18,15 +18,33 @@ public class ProductController {
     
 
 
- // All products
-    @GetMapping("/products")
+ // GET /products
+    @GetMapping
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
 
+    
+ // GET /products/category/5
     @GetMapping("/categories/{catId}/products")
     public List<Product> getProductsByCategory(@PathVariable int catId) {
         return productService.getProductsByCategory(catId);
     }
+    
+    // GET /products/10
+    @GetMapping("/{productId}")
+    public Product getProductById(@PathVariable int productId) {
+        return productService.getProductById(productId);
+    }
+    
+//    
+//    @PutMapping("/{productId}")
+//    public Product updateProduct(
+//            @PathVariable int productId,
+//            @RequestBody Product product) {
+//
+//        return productService.updateProduct(productId, product);
+//    }
+    
     
 }

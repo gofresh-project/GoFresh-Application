@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.Area;
 import com.example.demo.model.User;
 import com.example.demo.model.Vendor;
+import com.example.demo.repository.AreaRepository;
 import com.example.demo.repository.VendorRepository;
 
 @Service
@@ -16,46 +17,51 @@ public class VendorService {
 
     @Autowired
     VendorRepository vRepo;
+    
+    @Autowired
+    private AreaRepository areaRepository;
 
-    // Get all vendors
-    public List<Vendor> getAll() {
+    // ✅ Vendor Cards
+    public List<Vendor> getAllVendors() {
         return vRepo.findAll();
     }
 
-    // Get vendor by vendor ID
-    public Optional<Vendor> getOne(int id) {
-        return vRepo.findById(id);
+    // ✅ Vendor Page
+    public Optional<Vendor> getVendorById(int vendorId) {
+        return vRepo.findById(vendorId);
     }
 
-    // Get vendor by user
-//    public Optional<Vendor> findByUser(User user) {
-//        if (user == null) return Optional.empty();
-//        return vRepo.findByUser(user);
-//    }
+    // ✅ After Login
+    public Vendor getVendorByUserId(int userId) {
+        return vRepo.findByUser_UserId(userId)
+                .orElseThrow(() -> new RuntimeException("Vendor not found"));
+    }
 
-    // Get vendors by area
-//    public List<Vendor> findByArea(Area area) {
-//        if (area == null) return List.of();
-//        return vRepo.findByArea(area);
-//    }
-
-    // Get vendors with rating greater than given value
-//    public List<Vendor> findByRatingGreaterThan(double rating) {
-//        return vRepo.findByRatingGreaterThan(rating);
-//    }
-
-    // Get vendor by business registration number
-//    public Optional<Vendor> findByBusinessRegNo(String businessRegNo) {
-//        return vRepo.findByBusinessRegNo(businessRegNo);
-//    }
-
-    // Save vendor
-    public Vendor save(Vendor vendor) {
+    // ✅ Save Vendor
+    public Vendor saveVendor(Vendor vendor) {
         return vRepo.save(vendor);
     }
 
-    // Delete vendor
-    public void delete(int id) {
-        vRepo.deleteById(id);
+    // ✅ Update Vendor Profile
+    public Vendor updateVendor(int vendorId, Vendor vendor, int areaId) {
+
+        Vendor existing = vRepo.findById(vendorId)
+                .orElseThrow(() -> new RuntimeException("Vendor not found"));
+
+        Area area = areaRepository.findById(areaId)
+                .orElseThrow(() -> new RuntimeException("Area not found"));
+
+        existing.setBusinessName(vendor.getBusinessName());
+        existing.setBusinessRegNo(vendor.getBusinessRegNo());
+        existing.setArea(area);
+
+        return vRepo.save(existing);
     }
+
+    // ✅ Delete Vendor
+    public void deleteVendor(int vendorId) {
+    	vRepo.deleteById(vendorId);
+    }
+    
+    
 }

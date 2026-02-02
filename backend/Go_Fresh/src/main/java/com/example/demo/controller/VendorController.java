@@ -25,67 +25,114 @@ public class VendorController {
     @Autowired
     AreaService areaService;
 
-    // http://localhost:8080/allvendors
+    
+    
+
+    
+    
+ // ✅ Vendor Cards
     @GetMapping("/allvendors")
-    public List<Vendor> getAll() {
-        return vendorService.getAll();
+    public List<Vendor> getAllVendors() {
+        return vendorService.getAllVendors();
     }
 
-    
-    
-    
-    // http://localhost:8080/getvendor?vendorId=1
+    // ✅ Vendor Page
     @GetMapping("/getvendor")
-    public Optional<Vendor> getOne(@RequestParam("vendorId") int id) {
-        return vendorService.getOne(id);
+    public Optional<Vendor> getVendor(@RequestParam int vendorId) {
+        return vendorService.getVendorById(vendorId);
     }
-    
-    
-    
 
-    // http://localhost:8080/savevendor
+    // ✅ After Login
+    @GetMapping("/vendor/user/{userId}")
+    public Vendor getVendorByUserId(@PathVariable int userId) {
+        return vendorService.getVendorByUserId(userId);
+    }
+
+    // ✅ Save Vendor
     @PostMapping("/savevendor")
-    public Vendor save(@RequestBody Vendor vendor) {
-        return vendorService.save(vendor);
+    public Vendor saveVendor(@RequestBody Vendor vendor) {
+        return vendorService.saveVendor(vendor);
     }
-    
-    
-    
-    
-    
-    
 
-    // http://localhost:8080/deletevendor/1
+    // ✅ Update Vendor
+    @PutMapping("/vendor/{vendorId}")
+    public Vendor updateVendor(
+            @PathVariable int vendorId,
+            @RequestParam int areaId,
+            @RequestBody Vendor vendor) {
+
+        return vendorService.updateVendor(vendorId, vendor, areaId);
+    }
+
+    // ✅ Delete Vendor
     @DeleteMapping("/deletevendor/{vendorId}")
-    public void delete(@PathVariable("vendorId") int id) {
-        vendorService.delete(id);
+    public void deleteVendor(@PathVariable int vendorId) {
+        vendorService.deleteVendor(vendorId);
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    // http://localhost:8080/allvendors
+//    @GetMapping("/allvendors")
+//    public List<Vendor> getAll() {
+//        return vendorService.getAll();
+//    }
+//
+//    
+// // ✅ UPDATE VENDOR PROFILE
+//    @PutMapping("/{vendorId}")
+//    public Vendor updateVendor(
+//            @PathVariable int vendorId,
+//            @RequestParam int areaId,
+//            @RequestBody Vendor vendor) {
+//
+//        return vendorService.updateVendor(vendorId, vendor, areaId);
+//    }
+//    
+//    
+//    
+//    // http://localhost:8080/getvendor?vendorId=1
+//    @GetMapping("/getvendor")
+//    public Optional<Vendor> getOne(@RequestParam("vendorId") int id) {
+//        return vendorService.getOne(id);
+//    }
+//    
+    
+    
+
+//    // http://localhost:8080/savevendor
+//    @PostMapping("/savevendor")
+//    public Vendor save(@RequestBody Vendor vendor) {
+//        return vendorService.save(vendor);
+//    }
+//    
+//    
+//    
+//    
+//    
+//    
+//
+//    // http://localhost:8080/deletevendor/1
+//    @DeleteMapping("/deletevendor/{vendorId}")
+//    public void delete(@PathVariable("vendorId") int id) {
+//        vendorService.delete(id);
+//    }
 
     
-    
-//    // http://localhost:8080/findvendorbyuser?uid=2
-//    @GetMapping("/findvendorbyuser")
-//    public Optional<Vendor> findByUser(@RequestParam int uid) {
-//        User user = userService.getOne(uid); // return User directly
-//        return vendorService.findByUser(user);
-//    }
-//
-//    // http://localhost:8080/findvendorbyarea?aid=1
-//    @GetMapping("/findvendorbyarea")
-//    public List<Vendor> findByArea(@RequestParam int aid) {
-//        Area area = areaService.getOne(aid); // return Area directly
-//        return vendorService.findByArea(area);
-//    }
-//
-//    // http://localhost:8080/findvendorbyrating?rating=4.0
-//    @GetMapping("/findvendorbyrating")
-//    public List<Vendor> findByRating(@RequestParam double rating) {
-//        return vendorService.findByRatingGreaterThan(rating);
-//    }
-//
-//    // http://localhost:8080/findvendorbyreg?reg=BUS-PN-2025-001
-//    @GetMapping("/findvendorbyreg")
-//    public Optional<Vendor> findByBusinessRegNo(@RequestParam String reg) {
-//        return vendorService.findByBusinessRegNo(reg);
-//    }
+
 }

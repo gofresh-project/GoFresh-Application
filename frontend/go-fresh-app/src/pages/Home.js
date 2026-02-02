@@ -26,12 +26,13 @@
 //   );
 // }
 
-
 import "../styles/Home.css";
 
 export default function Home() {
   return (
+    
     <div className="home-container">
+
       {/* HERO SECTION */}
       <section className="home-hero">
         <h1>Fresh Fruits Delivered Daily 🍎</h1>
